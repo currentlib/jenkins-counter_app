@@ -1,4 +1,3 @@
-asdsd
 pipeline {
     agent any
 
