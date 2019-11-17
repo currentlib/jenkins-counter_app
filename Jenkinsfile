@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Pulling') {
             steps {
-		sh 'rm -r jenkins-counter_app'
 		echo 'Pulling'
 		sh 'git clone https://github.com/currentlib/jenkins-counter_app'
 		sh 'cd jenkins-counter_app'
