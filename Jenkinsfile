@@ -11,7 +11,6 @@ pipeline {
         stage('Pulling') {
             steps {
 		echo 'Pulling'
-		sh 'echo $(pwd)'
 		sh 'git clone https://github.com/currentlib/jenkins-counter_app'
 		sh 'cd jenkins-counter_app'
             }
