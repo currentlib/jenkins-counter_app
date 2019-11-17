@@ -4,13 +4,12 @@ pipeline {
     stages {
         stage('Pulling') {
             steps {
-		cd jenkins-counter_app
+		echo 'Pulling'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
-		sh 'ls -lsa'
             }
         }
         stage('Deploy') {
