@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+	registry = "artshoque/important-site"
+	registryCredential = 'dockerhub'
+	dockerImage = ''
+    }
+
     stages {
         stage('Pulling') {
             steps {
@@ -9,16 +15,25 @@ pipeline {
 		sh 'cd jenkins-counter_app'
             }
         }
-        stage('Test') {
+        stage('Building..') {
             steps {
-                echo 'Testing..'
+                echo 'Building..'
+		script {
+		    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+		}
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+		script {
+		    docker.withRegistry( '', registryCredential ) {
+			dockerImage.push()
+		    }
+		}
 		sh 'cd ..'
 		sh 'rm -r jenkins-counter_app'
+		sh 'docker rmi $registry:$BUILD_NUMBER'
             }
         }
     }
