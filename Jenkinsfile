@@ -1,2 +1,21 @@
+pipeline {
+    agent any
 
-adasdasdlolo
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+}
