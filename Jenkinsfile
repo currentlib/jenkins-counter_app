@@ -5,6 +5,7 @@ pipeline {
         stage('Pulling') {
             steps {
 		echo 'Pulling'
+		sh 'cd jenkins-counter_app'
             }
         }
         stage('Test') {
