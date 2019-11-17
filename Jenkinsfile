@@ -1,4 +1,3 @@
-dafsadf
 pipeline {
     agent any
 
