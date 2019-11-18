@@ -37,19 +37,12 @@ pipeline {
 		        sh 'docker rmi $registry:$BUILD_NUMBER'
 		    }
         }
+        stage('Remote SSH') {
+            sshCommand remote: remote, command: "ls - lsa"
+        }
     }
 }
 
 
-node {
-    def remote = [:]
-    remote.name = 'test-server'
-    remote.host = '35.238.212.146'
-    remote.user = 'g11hacha11'
-    remote.password = ''
-    remote.allowAnyHosts = true
-    stage('Remote SSH') {
-        sshCommand remote: remote, command: "ls - lsa"
-    }
-}
+
 
