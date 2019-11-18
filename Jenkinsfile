@@ -3,53 +3,39 @@ pipeline {
 
 
     environment {
-	registry = "artshoque/important-site"
-	registryCredential = 'dockerhub'
-	dockerImage = ''
+	    registry = "artshoque/important-site"
+	    registryCredential = 'dockerhub'
+	    dockerImage = ''
     }
 
     stages {
         stage('Pulling') {
             steps {
-		echo 'Pulling'
-		sh 'git clone https://github.com/currentlib/jenkins-counter_app'
-		sh 'cd jenkins-counter_app'
+		        echo 'Pulling'
+		        sh 'git clone https://github.com/currentlib/jenkins-counter_app'
+		        sh 'cd jenkins-counter_app'
             }
         }
         stage('Building..') {
             steps {
                 echo 'Building..'
-		script {
-		    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-		}
+		        script {
+		            dockerImage = docker.build registry + ":$BUILD_NUMBER"
+		        }
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-		script {
-		    docker.withRegistry( '', registryCredential ) {
-			dockerImage.push()
+		        script {
+		            docker.withRegistry( '', registryCredential ) {
+			            dockerImage.push()
+		            }
+		        }
+		        sh 'cd ..'
+		        sh 'rm -r -f jenkins-counter_app'
+		        sh 'docker rmi $registry:$BUILD_NUMBER'
 		    }
-		}
-		sh 'cd ..'
-		sh 'rm -r -f jenkins-counter_app'
-		sh 'docker rmi $registry:$BUILD_NUMBER'
-		}
-            }
         }
     }
 }
-
-node {
-    def remote = [:]
-    remote.name = 'test-server'
-    remote.host = '35.238.212.146'
-    remote.user = 'g11hacha11'
-    remote.password = ''
-    remote.allowAnyHosts = true
-    stage('Remote SSH') {
-        sshCommand remote: remote, command: "ls - lsa"
-    }
-
-
