@@ -35,13 +35,19 @@ pipeline {
 		sh 'cd ..'
 		sh 'rm -r -f jenkins-counter_app'
 		sh 'docker rmi $registry:$BUILD_NUMBER'
-		script {
-		    sh """ssh -tt g11hacha11@test-server << EOF
-		    ls - lsa
-		    exit
-		    EOF"""
 		}
             }
         }
+    }
+}
+
+node {
+    def remote = [:]
+    remote.name = 'test-server'
+    remote.host = '35.238.212.146'
+    remote.user = 'g11hacha11'
+    remote.allowAnyHosts = true
+    stage('Remote SSH') {
+	sshCommand remote: remote, command: "ls - lsa"
     }
 }
