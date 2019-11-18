@@ -37,9 +37,6 @@ pipeline {
 		        sh 'docker rmi $registry:$BUILD_NUMBER'
 		    }
         }
-        stage('Remote SSH') {
-            sshCommand remote: remote, command: "ls - lsa"
-        }
     }
 }
 
