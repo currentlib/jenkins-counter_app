@@ -33,7 +33,7 @@ pipeline {
 		    }
 		}
 		sh 'cd ..'
-		sh 'rm -r jenkins-counter_app'
+		sh 'rm -r -f jenkins-counter_app'
 		sh 'docker rmi $registry:$BUILD_NUMBER'
             }
         }
