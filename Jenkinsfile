@@ -51,5 +51,5 @@ node {
     stage('Remote SSH') {
         sshCommand remote: remote, command: "ls - lsa"
     }
-}
+
 
