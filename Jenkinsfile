@@ -1,6 +1,7 @@
 pipeline {
     agent any
 
+
     environment {
 	    registry = "artshoque/important-site"
 	    registryCredential = 'dockerhub'
