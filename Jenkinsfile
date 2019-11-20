@@ -35,6 +35,7 @@ pipeline {
 		        sh 'cd ..'
 		        sh 'rm -r -f jenkins-counter_app'
 		        sh 'docker rmi $registry:$BUILD_NUMBER'
+			sh 'ssh g11hacha11@35.222.241.245 && ls'
 		    }
         }
     }
