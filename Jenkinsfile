@@ -24,9 +24,9 @@ pipeline {
 		        }
             }
         }
-        stage('Deploy') {
+        stage('Dockerhub') {
             steps {
-                echo 'Deploying....'
+                echo 'Dockerhubing....'
 		        script {
 		            docker.withRegistry( '', registryCredential ) {
 			            dockerImage.push()
@@ -35,9 +35,39 @@ pipeline {
 		        sh 'cd ..'
 		        sh 'rm -r -f jenkins-counter_app'
 		        sh 'docker rmi $registry:$BUILD_NUMBER'
-			sh 'ssh g11hacha11@35.222.241.245 ls'
 		    }
         }
+	stage('Deploy') {
+	    steps {
+		echo 'Deploing...'
+			script {
+				sshPublisher(
+				    publishers: [
+					sshPublisherDesc(
+					    configName: 'g11hacha11@test-server', 
+					    transfers: [
+						sshTransfer(
+						    cleanRemote: false, 
+						    excludes: '', 
+						    execCommand: 'ls', 
+						    execTimeout: 120000, 
+						    flatten: false, 
+						    makeEmptyDirs: false, 
+						    noDefaultExcludes: false, 
+						    patternSeparator: '[, ]+', 
+						    remoteDirectory: '', 
+						    remoteDirectorySDF: false, 
+						    removePrefix: '', 
+						    sourceFiles: ''
+						)
+					    ], 
+					    usePromotionTimestamp: false, 
+					    useWorkspaceInPromotion: false, 
+					    verbose: false
+					)
+				    ]
+				)
+			}
     }
 }
 
