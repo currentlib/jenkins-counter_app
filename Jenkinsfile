@@ -36,7 +36,6 @@ pipeline {
 		        sh 'cd ..'
 		        sh 'rm -r -f jenkins-counter_app'
 		        sh 'docker rmi $registry:$BUILD_NUMBER'
-                sh 'ssh 
 		    }
         }
     }
