@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     environment {
 	    registry = "artshoque/important-site"
 	    registryCredential = 'dockerhub'
@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                echo 'Deploying.... bless rng'
 		        script {
 		            docker.withRegistry( '', registryCredential ) {
 			            dockerImage.push()
