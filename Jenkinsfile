@@ -1,6 +1,7 @@
 pipeline {
     agent any
 
+
     environment {
 	    registry = "artshoque/important-site"
 	    registryCredential = 'dockerhub'
@@ -11,7 +12,6 @@ pipeline {
         stage('Pulling') {
             steps {
 		        echo 'Pulling'
-			sh 'pwd'
 		        sh 'git clone https://github.com/currentlib/jenkins-counter_app'
 		        sh 'cd jenkins-counter_app'
             }
@@ -24,9 +24,9 @@ pipeline {
 		        }
             }
         }
-        stage('Dockerhub') {
+        stage('Deploy') {
             steps {
-                echo 'Dockerhubing....'
+                echo 'Deploying....'
 		        script {
 		            docker.withRegistry( '', registryCredential ) {
 			            dockerImage.push()
@@ -37,7 +37,7 @@ pipeline {
 		        sh 'docker rmi $registry:$BUILD_NUMBER'
 		    }
         }
-	}
+    }
 }
 
 
