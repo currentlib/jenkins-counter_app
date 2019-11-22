@@ -23,9 +23,9 @@ pipeline {
 		        }
             }
         }
-        stage('Deploy') {
+        stage('Dockerhubing') {
             steps {
-                echo 'Deploying.... bless rng'
+                echo 'Dockerhubing.... bless rng'
 		        script {
 		            docker.withRegistry( '', registryCredential ) {
 			            dockerImage.push()
@@ -34,6 +34,8 @@ pipeline {
 		        sh 'cd ..'
 		        sh 'rm -r -f jenkins-counter_app'
 		        sh 'docker rmi $registry:$BUILD_NUMBER'
+			sh 'sudo rm -r -f /var/jenkins_home/workspace/pipe_counter/'
+			sh 'sudo rm -r -f /var/jenkins_home/workspace/pipe_counter@temp/
 		    }
         }
     }
