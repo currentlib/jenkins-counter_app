@@ -37,7 +37,7 @@ pipeline {
         }
         stage('Deploy..') {
             steps {
-                echo 'Deploy to remote server..'
+                echo 'Deplofsdfdsy to remote server..'
                 script {
                     try {
                         sshPublisher(publishers: [sshPublisherDesc(configName: 'g11hacha11@test-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'docker rm -f $(docker ps -a -q)', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
