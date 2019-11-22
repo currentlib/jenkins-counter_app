@@ -35,7 +35,7 @@ pipeline {
 		        sh 'rm -r -f jenkins-counter_app'
 		        sh 'docker rmi $registry:$BUILD_NUMBER'
 			sh 'sudo rm -r -f /var/jenkins_home/workspace/pipe_counter/'
-			sh 'sudo rm -r -f /var/jenkins_home/workspace/pipe_counter@temp/
+			sh 'sudo rm -r -f /var/jenkins_home/workspace/pipe_counter@temp/'
 		    }
         }
     }
