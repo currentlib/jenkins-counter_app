@@ -45,6 +45,7 @@ pipeline {
 
                     finally {
                         sshPublisher(publishers: [sshPublisherDesc(configName: 'g11hacha11@test-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'docker run -it -d -p 5000:5000 $registry:$BUILD_NUMBER', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])           
+                        telegramSend 'Hello World'
                     }
                 }
             }
