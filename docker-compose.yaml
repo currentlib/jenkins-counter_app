@@ -1,8 +1,8 @@
 version: '3.7'
 services: 
   homework:
-    build: .
-    image: artshoque/counter_app:01
+    #build: .
+    image: artshoque/important-site:dev
     volumes:
     - storage:/flask/logs
     labels:
