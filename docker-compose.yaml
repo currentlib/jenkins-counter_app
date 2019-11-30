@@ -1,7 +1,6 @@
 version: '3.7'
 services: 
   homework:
-    #build: .
     image: artshoque/important-site:dev
     volumes:
     - storage:/flask/logs
