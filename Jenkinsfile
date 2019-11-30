@@ -55,12 +55,6 @@ pipeline {
             }
         }
     }
-
-//    post {
-//        always {
-//            cleanWS()
-//        }
-//    }
 }
 
 
