@@ -1,0 +1,43 @@
+version: '3.7'
+services: 
+  homework:
+    build: .
+    image: artshoque/counter_app:01
+    volumes:
+    - storage:/flask/logs
+    labels:
+    - "traefik.frontend.rule=HostRegexp:{catchall:.*}"
+    depends_on:
+    - redis
+    networks:
+    - public
+    - secret
+  redis:
+    image: redis:alpine
+    volumes:
+    - redis-data:/data
+    networks:
+    - secret
+  loadbalancer:
+    image: traefik:v1.7.19-alpine
+    command: --docker
+    labels:
+    - "traefik.http.services.loadbalancer.loadbalancer.server.port=80"
+    links:
+    - homework
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+    - 8080:80
+    networks:
+    - public
+volumes:
+  redis-data:
+    driver: local
+  storage:
+    driver: local
+networks:
+  secret:
+    driver: bridge
+  public:
+    driver: bridge

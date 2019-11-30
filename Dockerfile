@@ -1,18 +1,16 @@
-FROM python:3.8.0-alpine3.10
+FROM python:3.6-alpine3.9
 
-RUN pip install flask
+COPY requirements.txt .
 
-RUN printenv
+RUN pip install -r requirements.txt
 
 WORKDIR /flask
 
-COPY app.py .
+RUN mkdir logs
 
-COPY index.html ./templates/index.html
+COPY /hits/app.py . 
 
 EXPOSE 5000
-
-#RUN python app.py
 
 EntryPOINT ["/usr/local/bin/python3"]
 
