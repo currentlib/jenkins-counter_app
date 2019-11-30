@@ -10,8 +10,6 @@ RUN mkdir logs
 
 COPY /hits/app.py . 
 
-EXPOSE 5000
-
 EntryPOINT ["/usr/local/bin/python3"]
 
 CMD ["app.py"]
