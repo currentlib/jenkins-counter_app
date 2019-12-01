@@ -125,12 +125,12 @@ Server status: $curlState
 
 STAGES STATUS
 
-ImageDev: $dockerImageErr
-ImageNumbered: $dockerImageNumberedErr
-ImagePush: $dockerImagePushErr
-ImageNumberedPush: $dockerImageNumberedPushErr
-docker-compose.yaml: $publishArtifactErr
-pull and run: $publishPullErr
+Dev Image: $dockerImageErr
+Numbered Image: $dockerImageNumberedErr
+Dev Image Push: $dockerImagePushErr
+Numbered Image Push: $dockerImageNumberedPushErr
+Sending docker-compose: $publishArtifactErr
+Deploying to Remote Server: $publishPullErr
 """
                 }
             }
@@ -139,12 +139,12 @@ pull and run: $publishPullErr
             script {
                 telegramSend """SOMETHING WENT WRONG
                 
-ImageDev: $dockerImageErr
-ImageNumbered: $dockerImageNumberedErr
-ImagePush: $dockerImagePushErr
-ImageNumberedPush: $dockerImageNumberedPushErr
-docker-compose.yaml: $publishArtifactErr
-pull and run: $publishPullErr
+Dev Image: $dockerImageErr
+Numbered Image: $dockerImageNumberedErr
+Dev Image Push: $dockerImagePushErr
+Numbered Image Push: $dockerImageNumberedPushErr
+Sending docker-compose: $publishArtifactErr
+Deploying to Remote Server: $publishPullErr
 """
             }
         }
