@@ -8,6 +8,7 @@ pipeline {
     }
 
     stages {
+        
         stage('Pulling') {
             steps {
 		        echo 'Pulling'
@@ -21,6 +22,7 @@ pipeline {
 		        
             }
         }
+
         stage('Building..') {
             steps {
                 echo 'Building..'
@@ -30,6 +32,7 @@ pipeline {
 		        }
             }
         }
+
         stage('Dockerhubing') {
             steps {
                 echo 'Dockerhubing.... bless rng'
@@ -45,6 +48,7 @@ pipeline {
 		        sh 'rm -r -f jenkins-counter_app'
 		    }
         }
+
         stage('Deploy..') {
             steps {
                 echo 'Deplofsdfdsy to remote server..'
