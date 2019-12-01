@@ -6,6 +6,12 @@ pipeline {
 	    dockerImage = ''
         dockerImageNumbered = ''
         curlState = 'up'
+        dockerImageErr = ''
+        dockerImageNumberedErr = ''
+        dockerImagePushErr = ''
+        dockerImageNumberedPushErr = ''
+        publishArtifactErr = ''
+        publishPullErr = ''
     }
 
     stages {
@@ -17,8 +23,8 @@ pipeline {
                     try {
                         sh 'rm -r -f jenkins-counter_app/'
                     }
-                    catch (error) {
-                        echo '$error'
+                    catch (err) {
+                        echo '$err'
                     }
                     finally {
                         sh 'git clone https://github.com/currentlib/jenkins-counter_app'
@@ -32,8 +38,19 @@ pipeline {
             steps {
                 echo 'Building..'
 		        script {
-		            dockerImage = docker.build registry + ":dev"
-                    dockerImageNumbered = docker.build registry + ":$BUILD_NUMBER"
+		            try {
+                        dockerImage = docker.build registry + ":dev"
+                    }
+                    catch (err) {
+                        dockerImageErr = err
+                    }
+                    
+                    try {
+                        dockerImageNumbered = docker.build registry + ":$BUILD_NUMBER"
+                    }
+                    catch (err) {
+                        dockerImageNumberedErr = err
+                    }
 		        }
             }
         }
@@ -42,12 +59,23 @@ pipeline {
             steps {
                 echo 'Pushing..'
 		        script {
-		            docker.withRegistry( '', registryCredential ) {
-			            dockerImage.push()
-		            }
-                    docker.withRegistry( '', registryCredential ) {
-			            dockerImageNumbered.push()
-		            }
+		            try {
+                        docker.withRegistry( '', registryCredential ) {
+                            dockerImage.push()
+                        }
+                    }
+                    catch (err) {
+                        dockerImagePushErr = err
+                    }
+                    
+                    try {
+                        docker.withRegistry( '', registryCredential ) {
+                            dockerImageNumbered.push()
+                        }
+                    }
+                    catch (err) {
+                        dockerImageNumberedPushErr = err
+                    }
 		        }
 		        sh 'cd ..'
 		        sh 'rm -r -f jenkins-counter_app'
@@ -58,8 +86,19 @@ pipeline {
             steps {
                 echo 'Deploying..'
                 script {
-                    sshPublisher(publishers: [sshPublisherDesc(configName: 'g11hacha11@test-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'jenkins-counter_app/', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'docker-compose.yaml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
-                    sshPublisher(publishers: [sshPublisherDesc(configName: 'g11hacha11@test-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'docker pull artshoque/important-site:dev && cd jenkins-counter_app/ && docker-compose up -d --scale homework=4', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                    try {
+                        sshPublisher(publishers: [sshPublisherDesc(configName: 'g11hacha11@test-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'jenkins-counter_app/', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'docker-compose.yaml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                    }
+                    catch (err) {
+                        publishArtifactErr = err
+                    }
+                    
+                    try {
+                        sshPublisher(publishers: [sshPublisherDesc(configName: 'g11hacha11@test-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'docker pull artshoque/important-site:dev && cd jenkins-counter_app/ && docker-compose up -d --scale homework=4', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                    }
+                    catch (err) {
+                        publishPullErr = err
+                    }
                 }
             }
         }
@@ -75,16 +114,23 @@ pipeline {
                     curlState = err
                 }
                 finally {
-                    telegramSend """App name:      $registry:$BUILD_NUMBER
-Server name:   g11hacha11@test-server
+                    telegramSend """App name: $registry:$BUILD_NUMBER
+Server name: g11hacha11@test-server
 Server status: $curlState
                                  """
                 }
             }
         }
+        failure {
+            script {
+                telegramSend """ImageDev: $dockerImageErr
+ImageNumbered: $dockerImageNumberedErr
+ImagePush: $dockerImagePushErr
+ImageNumberedPush: $dockerImageNumberedPushErr
+docker-compose.yaml: $publishArtifactErr
+pull and run: $publishPullErr
+"""
+            }
+        }
     }
 }
-
-
-
-
