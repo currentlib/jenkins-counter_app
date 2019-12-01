@@ -9,7 +9,7 @@ redis = Redis(host='redis', port=6379)
 @app.route('/')
 def hello():
     count = redis.incr('hits')
-    message = 'I have been seen {t} times. My Hostname ID is: {h} \n'.format(
+    message = 'I have been seen {t} times. My hostname is: {h} \n'.format(
         t=count, h=socket.gethostname()
     )
     with open('logs/app.log', 'a') as log:
