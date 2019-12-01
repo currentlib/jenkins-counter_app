@@ -69,7 +69,7 @@ pipeline {
         success {
             script {
                 try {
-                    sh 'curl http://34.69.46.182:5000/'
+                    sh 'curl http://34.69.46.182:8080/'
                 }
                 catch (err) {
                     curlState = err
