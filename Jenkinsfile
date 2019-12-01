@@ -6,12 +6,12 @@ pipeline {
 	    dockerImage = ''
         dockerImageNumbered = ''
         curlState = 'up'
-        dockerImageErr = ''
-        dockerImageNumberedErr = ''
-        dockerImagePushErr = ''
-        dockerImageNumberedPushErr = ''
-        publishArtifactErr = ''
-        publishPullErr = ''
+        dockerImageErr = 'ok'
+        dockerImageNumberedErr = 'ok'
+        dockerImagePushErr = 'ok'
+        dockerImageNumberedPushErr = 'ok'
+        publishArtifactErr = 'ok'
+        publishPullErr = 'ok'
     }
 
     stages {

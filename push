@@ -1,4 +1,5 @@
 #!/bin/bash
+read -p "Your commit: " comm
 git add .
-git commit -m "Some commit"
+git commit -m "$comm"
 git push -u origin master
