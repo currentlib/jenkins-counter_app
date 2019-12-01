@@ -70,7 +70,7 @@ pipeline {
                     
                     try {
                         docker.withRegistry( '', registryCredential ) {
-                            dockerImageNumbered.push()
+                            dockerImageNumbereds.push()
                         }
                     }
                     catch (err) {
@@ -114,7 +114,9 @@ pipeline {
                     curlState = err
                 }
                 finally {
-                    telegramSend """App name: $registry:$BUILD_NUMBER
+                    telegramSend """Build and deploy is ok
+                    
+App name: $registry:$BUILD_NUMBER
 Server name: g11hacha11@test-server
 Server status: $curlState
                                  """
@@ -123,7 +125,9 @@ Server status: $curlState
         }
         failure {
             script {
-                telegramSend """ImageDev: $dockerImageErr
+                telegramSend """Build or deploy is NOT ok
+                
+ImageDev: $dockerImageErr
 ImageNumbered: $dockerImageNumberedErr
 ImagePush: $dockerImagePushErr
 ImageNumberedPush: $dockerImageNumberedPushErr
