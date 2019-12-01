@@ -8,16 +8,18 @@ pipeline {
     }
 
     stages {
-        
+
         stage('Pulling') {
             steps {
 		        echo 'Pulling'
-                try {
-                    sh 'rm -r -f jenkins-counter_app/'
-                }
-                finally {
-                    sh 'git clone https://github.com/currentlib/jenkins-counter_app'
-		            sh 'cd jenkins-counter_app'
+                script {
+                    try {
+                        sh 'rm -r -f jenkins-counter_app/'
+                    }
+                    finally {
+                        sh 'git clone https://github.com/currentlib/jenkins-counter_app'
+                        sh 'cd jenkins-counter_app'
+                    }
                 }
 		        
             }
