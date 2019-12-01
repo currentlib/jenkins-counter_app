@@ -23,9 +23,6 @@ pipeline {
                     try {
                         sh 'rm -r -f jenkins-counter_app/'
                     }
-                    catch (err) {
-                        echo '$err'
-                    }
                     finally {
                         sh 'git clone https://github.com/currentlib/jenkins-counter_app'
                         sh 'cd jenkins-counter_app'
