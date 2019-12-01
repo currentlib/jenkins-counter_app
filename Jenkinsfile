@@ -75,9 +75,10 @@ pipeline {
                     curlState = err
                 }
                 finally {
-                    telegramSend 'App name:      $registry:$BUILD_NUMBER\n
-                                  Server name:   g11hacha11@test-server\n
-                                  Server status: $curlState'
+                    telegramSend """App name:      $registry:$BUILD_NUMBER
+                    Server name:   g11hacha11@test-server
+                    Server status: $curlState
+                                 """
                 }
             }
         }
