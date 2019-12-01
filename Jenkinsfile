@@ -105,6 +105,7 @@ pipeline {
         success {
             script {
                 try {
+                    sleep(time:5,unit:"SECONDS")
                     sh 'curl http://34.69.46.182:8080/'
                 }
                 catch (err) {
