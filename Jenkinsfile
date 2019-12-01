@@ -69,15 +69,15 @@ pipeline {
         success {
             script {
                 try {
-                    sh 'curl http://34.69.46.182:8080/'
+                    sh 'curl http://34.69.46.182:5000/'
                 }
                 catch (err) {
                     curlState = err
                 }
                 finally {
                     telegramSend """App name:      $registry:$BUILD_NUMBER
-                    Server name:   g11hacha11@test-server
-                    Server status: $curlState
+Server name:   g11hacha11@test-server
+Server status: $curlState
                                  """
                 }
             }
