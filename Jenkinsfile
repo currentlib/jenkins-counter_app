@@ -70,7 +70,7 @@ pipeline {
                     
                     try {
                         docker.withRegistry( '', registryCredential ) {
-                            dockerImageNumbereds.push()
+                            dockerImageNumbered.push()
                         }
                     }
                     catch (err) {
@@ -115,17 +115,29 @@ pipeline {
                 }
                 finally {
                     telegramSend """Build and deploy is ok
+
+Main information
                     
 App name: $registry:$BUILD_NUMBER
 Server name: g11hacha11@test-server
 Server status: $curlState
-                                 """
+
+
+STAGES STATUS
+
+ImageDev: $dockerImageErr
+ImageNumbered: $dockerImageNumberedErr
+ImagePush: $dockerImagePushErr
+ImageNumberedPush: $dockerImageNumberedPushErr
+docker-compose.yaml: $publishArtifactErr
+pull and run: $publishPullErr
+"""
                 }
             }
         }
         failure {
             script {
-                telegramSend """Build or deploy is NOT ok
+                telegramSend """SOMETHING WENT WRONG
                 
 ImageDev: $dockerImageErr
 ImageNumbered: $dockerImageNumberedErr
