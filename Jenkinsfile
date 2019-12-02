@@ -26,7 +26,10 @@ pipeline {
                 script {
                     sh 'git clone https://github.com/currentlib/jenkins-counter_app'
                     sh 'cd jenkins-counter_app'
-                    sh 'echo "ENV scaleNumber=$scaleNumber" | cat - Dockerfile > temp && mv temp Dockerfile'
+                    sh 'sed -i.bak "4i\          ENV scaleNumber=$scaleNumber\
+" Dockerfile
+'
+                    //sh 'echo "ENV scaleNumber=$scaleNumber" | cat - Dockerfile > temp && mv temp Dockerfile'
                 }
             }
         }
@@ -92,8 +95,6 @@ pipeline {
                                             excludes: '', 
                                             execCommand: 'cd jenkins-counter_app/ \
                                                           && docker-compose down \
-                                                          && export scaleNumber="$scaleNumber" \
-                                                          && printenv \
                                                           && docker-compose --compatibility up', 
                                             execTimeout: 120000, 
                                             flatten: false, 
