@@ -78,7 +78,32 @@ pipeline {
                 echo 'Deploying..'
                 script {
                     try {
-                        sshPublisher(publishers: [sshPublisherDesc(configName: 'g11hacha11@test-server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'jenkins-counter_app/', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'docker-compose.yaml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                        sshPublisher(
+                            publishers: [
+                                sshPublisherDesc(
+                                    configName: 'g11hacha11@test-server', 
+                                    transfers: [
+                                        sshTransfer(
+                                            cleanRemote: false, 
+                                            excludes: '', 
+                                            execCommand: '', 
+                                            execTimeout: 120000, 
+                                            flatten: false, 
+                                            makeEmptyDirs: false, 
+                                            noDefaultExcludes: false, 
+                                            patternSeparator: '[, ]+', 
+                                            remoteDirectory: 'jenkins-counter_app/', 
+                                            remoteDirectorySDF: false, 
+                                            removePrefix: '', 
+                                            sourceFiles: 'docker-compose.yaml'
+                                        )
+                                    ], 
+                                    usePromotionTimestamp: false, 
+                                    useWorkspaceInPromotion: false, 
+                                    verbose: false
+                                )
+                            ]
+                        )
                     }
                     catch (err) {
                         publishArtifactErr = err
