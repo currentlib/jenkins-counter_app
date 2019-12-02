@@ -86,9 +86,9 @@ pipeline {
                                         sshTransfer(
                                             cleanRemote: false, 
                                             excludes: '', 
-                                            execCommand: 'docker pull artshoque/important-site:dev \
-                                                          && cd jenkins-counter_app/ \
-                                                          && docker-compose up -d --scale homework=$scaleNumber', 
+                                            execCommand: 'cd jenkins-counter_app/ \
+                                                          && docker-compose down \
+                                                          && docker-compose up -d --force-recreate --scale homework=$scaleNumber', 
                                             execTimeout: 120000, 
                                             flatten: false, 
                                             makeEmptyDirs: false, 
