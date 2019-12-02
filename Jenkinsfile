@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'ubuntu'
+    }
     environment {
         registry = "artshoque/important-site"
         registryCredential = 'dockerhub'
