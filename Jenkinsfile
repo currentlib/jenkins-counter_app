@@ -117,17 +117,6 @@ pipeline {
 
     post {
         always {
-            telegramSend """Job status: other
-
-STAGES STATUS
-
-Dev Image: $dockerImageErr
-Numbered Image: $dockerImageNumberedErr
-Dev Image Push: $dockerImagePushErr
-Numbered Image Push: $dockerImageNumberedPushErr
-Sending docker-compose: $publishArtifactErr
-Deploying to Remote Server: $publishPullErr
-"""
             cleanWs()
         }
         success {
