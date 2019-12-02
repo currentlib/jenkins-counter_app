@@ -139,7 +139,6 @@ App name: $registry:$BUILD_NUMBER
 Server name: g11hacha11@test-server
 Server status: $curlState
 
-
 STAGES STATUS
 
 Dev Image: $dockerImageErr
