@@ -92,7 +92,7 @@ pipeline {
                                             execCommand: 'cd jenkins-counter_app/ \
                                                           && echo "scaleNumber=$scaleNumber" >> .env \
                                                           && docker-compose down \
-                                                          && docker-compose --compatibility up', 
+                                                          && docker-compose --compatibility up -d', 
                                             execTimeout: 120000, 
                                             flatten: false, 
                                             makeEmptyDirs: false, 
