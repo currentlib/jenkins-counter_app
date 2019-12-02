@@ -4,6 +4,6 @@ RUN pip install -r requirements.txt
 WORKDIR /flask
 RUN mkdir logs
 COPY /hits/app.py . 
-EXPOSE 80
+EXPOSE 5000
 ENTRYPOINT ["/usr/local/bin/python3"]
 CMD ["app.py"]
