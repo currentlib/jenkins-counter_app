@@ -92,6 +92,7 @@ pipeline {
                                             excludes: '', 
                                             execCommand: 'cd jenkins-counter_app/ \
                                                           && docker-compose down \
+                                                          && export scaleNumber="$scaleNumber" \
                                                           && docker-compose --compatibility up', 
                                             execTimeout: 120000, 
                                             flatten: false, 
@@ -127,7 +128,7 @@ pipeline {
             script {
                 try {
                     sleep(time:5,unit:"SECONDS")
-                    sh 'curl http://34.69.46.182:80/'
+                    sh 'curl http://35.239.70.13:80/'
                 }
                 catch (err) {
                     curlState = err
