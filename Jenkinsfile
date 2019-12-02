@@ -161,9 +161,7 @@ pipeline {
                     curlState = err
                 }
                 finally {
-                    telegramSend """Build and deploy is ok
-
-Main information
+                    telegramSend """Job status: success
                     
 App name: $registry:$BUILD_NUMBER
 Server name: g11hacha11@test-server
@@ -182,11 +180,10 @@ Deploying to Remote Server: $publishPullErr
                 }
                 cleanWs()
             }
-
         }
         failure {
             script {
-                telegramSend """SOMETHING WENT WRONG
+                telegramSend """Job status: failed 
                 
 Dev Image: $dockerImageErr
 Numbered Image: $dockerImageNumberedErr
