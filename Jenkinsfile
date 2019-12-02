@@ -18,7 +18,7 @@ pipeline {
 
         stage('Pulling') {
             steps {
-		        echo 'Pulling..'
+                echo 'Pulling..'
                 script {
                     sh 'git clone https://github.com/currentlib/jenkins-counter_app'
                     sh 'cd jenkins-counter_app'
@@ -43,7 +43,7 @@ pipeline {
                     catch (err) {
                         dockerImageNumberedErr = err
                     }
-		        }
+                }
             }
         }
 
@@ -98,7 +98,9 @@ pipeline {
 
     post {
         always {
-            cleanWS()
+            script {
+                cleanWS()
+            }
         }
         success {
             script {
@@ -128,9 +130,10 @@ Numbered Image Push: $dockerImageNumberedPushErr
 Sending docker-compose: $publishArtifactErr
 Deploying to Remote Server: $publishPullErr
 """
+                    cleanWS()
                 }
             }
-            cleanWS()
+
         }
         failure {
             script {
@@ -143,8 +146,8 @@ Numbered Image Push: $dockerImageNumberedPushErr
 Sending docker-compose: $publishArtifactErr
 Deploying to Remote Server: $publishPullErr
 """
+                cleanWS()
             }
-            cleanWS()
         }
     }
 }
