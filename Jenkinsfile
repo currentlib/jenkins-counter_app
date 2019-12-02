@@ -20,13 +20,8 @@ pipeline {
             steps {
 		        echo 'Pulling..'
                 script {
-                    try {
-                        sh 'rm -r -f jenkins-counter_app/'
-                    }
-                    finally {
-                        sh 'git clone https://github.com/currentlib/jenkins-counter_app'
-                        sh 'cd jenkins-counter_app'
-                    }
+                    sh 'git clone https://github.com/currentlib/jenkins-counter_app'
+                    sh 'cd jenkins-counter_app'
                 }
             }
         }
@@ -102,6 +97,9 @@ pipeline {
     }
 
     post {
+        always {
+            cleanWS()
+        }
         success {
             script {
                 try {
@@ -132,6 +130,7 @@ Deploying to Remote Server: $publishPullErr
 """
                 }
             }
+            cleanWS()
         }
         failure {
             script {
@@ -145,6 +144,7 @@ Sending docker-compose: $publishArtifactErr
 Deploying to Remote Server: $publishPullErr
 """
             }
+            cleanWS()
         }
     }
 }
