@@ -77,7 +77,7 @@ pipeline {
             steps {
                 echo 'Deploying..'
                 script {
-                    try {
+                    /*try {
                         sshPublisher(
                             publishers: [
                                 sshPublisherDesc(
@@ -108,7 +108,7 @@ pipeline {
                     catch (err) {
                         publishArtifactErr = err
                     }
-                    
+                    */
                     try {
                         sshPublisher(
                             publishers: [
@@ -129,7 +129,7 @@ pipeline {
                                             remoteDirectory: '', 
                                             remoteDirectorySDF: false, 
                                             removePrefix: '', 
-                                            sourceFiles: ''
+                                            sourceFiles: 'docker-compose.yaml'
                                         )
                                     ], 
                                     usePromotionTimestamp: false, 
