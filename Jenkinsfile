@@ -15,7 +15,7 @@ pipeline {
     }
 
     stages {
-        stage('Pulling') {
+        stage('Pull') {
             steps {
                 echo 'Pulling..'
                 script {
@@ -25,7 +25,7 @@ pipeline {
             }
         }
 
-        stage('Building') {
+        stage('Build') {
             steps {
                 echo 'Building..'
                 script {
@@ -46,7 +46,7 @@ pipeline {
             }
         }
 
-        stage('Pushing') {
+        stage('Push') {
             steps {
                 echo 'Pushing..'
                 script {
@@ -68,7 +68,7 @@ pipeline {
                         dockerImageNumberedPushErr = err
                     }
                 }
-		    }
+            }
         }
 
         stage('Deploy..') {
