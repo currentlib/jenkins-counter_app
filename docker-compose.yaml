@@ -1,6 +1,6 @@
 version: '3.7'
 services: 
-  homework:
+  counter:
     image: artshoque/important-site:dev
     volumes:
     - storage:/flask/logs

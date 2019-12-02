@@ -87,7 +87,8 @@ pipeline {
                                             cleanRemote: false, 
                                             excludes: '', 
                                             execCommand: 'cd jenkins-counter_app/ \
-                                                          && docker-compose up -d --force-recreate --scale homework=$scaleNumber', 
+                                                          && docker-compose down
+                                                          && docker-compose up -d --force-recreate --scale counter=$scaleNumber', 
                                             execTimeout: 120000, 
                                             flatten: false, 
                                             makeEmptyDirs: false, 
