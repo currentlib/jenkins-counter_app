@@ -87,14 +87,13 @@ pipeline {
                                             cleanRemote: false, 
                                             excludes: '', 
                                             execCommand: 'docker pull artshoque/important-site:dev \
-                                                          && cd jenkins-counter_app/ \
                                                           && docker-compose up -d --scale homework=$scaleNumber', 
                                             execTimeout: 120000, 
                                             flatten: false, 
                                             makeEmptyDirs: false, 
                                             noDefaultExcludes: false, 
                                             patternSeparator: '[, ]+', 
-                                            remoteDirectory: '', 
+                                            remoteDirectory: 'jenkins-counter_app/', 
                                             remoteDirectorySDF: false, 
                                             removePrefix: '', 
                                             sourceFiles: 'docker-compose.yaml'
