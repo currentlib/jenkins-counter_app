@@ -50,8 +50,8 @@ pipeline {
         stage('Pushing') {
             steps {
                 echo 'Pushing..'
-		        script {
-		            try {
+                script {
+                    try {
                         docker.withRegistry( '', registryCredential ) {
                             dockerImage.push()
                         }
@@ -68,9 +68,7 @@ pipeline {
                     catch (err) {
                         dockerImageNumberedPushErr = err
                     }
-		        }
-		        sh 'cd ..'
-		        sh 'rm -r -f jenkins-counter_app'
+                }
 		    }
         }
 
@@ -99,7 +97,7 @@ pipeline {
     post {
         always {
             script {
-                cleanWS()
+                cleanWS
             }
         }
         success {
@@ -130,7 +128,7 @@ Numbered Image Push: $dockerImageNumberedPushErr
 Sending docker-compose: $publishArtifactErr
 Deploying to Remote Server: $publishPullErr
 """
-                    cleanWS()
+                    cleanWS
                 }
             }
 
@@ -146,7 +144,7 @@ Numbered Image Push: $dockerImageNumberedPushErr
 Sending docker-compose: $publishArtifactErr
 Deploying to Remote Server: $publishPullErr
 """
-                cleanWS()
+                cleanWS
             }
         }
     }
