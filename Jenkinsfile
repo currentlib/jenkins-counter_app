@@ -26,7 +26,7 @@ pipeline {
                 script {
                     sh 'git clone https://github.com/currentlib/jenkins-counter_app'
                     sh 'cd jenkins-counter_app'
-                    sh 'sed -i.bak "4i\          ENV scaleNumber=$scaleNumber\
+                    sh 'sed -i.bak "4i\\          ENV scaleNumber=$scaleNumber\\
 " Dockerfile
 '
                     //sh 'echo "ENV scaleNumber=$scaleNumber" | cat - Dockerfile > temp && mv temp Dockerfile'
