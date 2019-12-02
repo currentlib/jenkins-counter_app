@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment {
-	    registry = "artshoque/important-site"
-	    registryCredential = 'dockerhub'
-	    dockerImage = ''
+        registry = "artshoque/important-site"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
         dockerImageNumbered = ''
         curlState = 'up'
         dockerImageErr = 'ok'
@@ -15,7 +15,6 @@ pipeline {
     }
 
     stages {
-
         stage('Pulling') {
             steps {
                 echo 'Pulling..'
@@ -96,9 +95,7 @@ pipeline {
 
     post {
         always {
-            script {
-                cleanWS
-            }
+            cleanWs()
         }
         success {
             script {
@@ -128,8 +125,8 @@ Numbered Image Push: $dockerImageNumberedPushErr
 Sending docker-compose: $publishArtifactErr
 Deploying to Remote Server: $publishPullErr
 """
-                    cleanWS
                 }
+                cleanWs()
             }
 
         }
@@ -144,8 +141,8 @@ Numbered Image Push: $dockerImageNumberedPushErr
 Sending docker-compose: $publishArtifactErr
 Deploying to Remote Server: $publishPullErr
 """
-                cleanWS
             }
+            cleanWs()
         }
     }
 }
