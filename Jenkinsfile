@@ -120,7 +120,7 @@ pipeline {
                                             excludes: '', 
                                             execCommand: 'docker pull artshoque/important-site:dev \
                                                           && cd jenkins-counter_app/ \
-                                                          && docker-compose up -d --scale homework=4', 
+                                                          && docker-compose up -d --scale homework=2', 
                                             execTimeout: 120000, 
                                             flatten: false, 
                                             makeEmptyDirs: false, 
