@@ -2,6 +2,8 @@ version: '3.7'
 services: 
   counter:
     image: artshoque/important-site:dev
+    deploy:
+      replicas: ${scaleNumber}
     volumes:
     - storage:/flask/logs
     labels:
