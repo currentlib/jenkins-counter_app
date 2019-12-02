@@ -93,6 +93,7 @@ pipeline {
                                             execCommand: 'cd jenkins-counter_app/ \
                                                           && docker-compose down \
                                                           && export scaleNumber="$scaleNumber" \
+                                                          && printenv \
                                                           && docker-compose --compatibility up', 
                                             execTimeout: 120000, 
                                             flatten: false, 
