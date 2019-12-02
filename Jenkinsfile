@@ -29,8 +29,8 @@ pipeline {
         stage('Building') {
             steps {
                 echo 'Building..'
-		        script {
-		            try {
+                script {
+                    try {
                         dockerImage = docker.build registry + ":dev"
                     }
                     catch (err) {
