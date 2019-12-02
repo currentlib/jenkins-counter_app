@@ -91,7 +91,7 @@ pipeline {
                                             excludes: '', 
                                             execCommand: 'cd jenkins-counter_app/ \
                                                           && docker-compose down \
-                                                          && docker-compose up -d --force-recreate --scale counter=${params.scaleNumber}', 
+                                                          && docker-compose up -d --force-recreate --scale counter=$scaleNumber', 
                                             execTimeout: 120000, 
                                             flatten: false, 
                                             makeEmptyDirs: false, 
