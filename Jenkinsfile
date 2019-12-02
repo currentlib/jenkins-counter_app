@@ -87,6 +87,7 @@ pipeline {
                                             cleanRemote: false, 
                                             excludes: '', 
                                             execCommand: 'docker pull artshoque/important-site:dev \
+                                                          && cd jenkins-counter_app/ \
                                                           && docker-compose up -d --scale homework=$scaleNumber', 
                                             execTimeout: 120000, 
                                             flatten: false, 
@@ -116,6 +117,17 @@ pipeline {
 
     post {
         always {
+            telegramSend """Job status: other
+
+STAGES STATUS
+
+Dev Image: $dockerImageErr
+Numbered Image: $dockerImageNumberedErr
+Dev Image Push: $dockerImagePushErr
+Numbered Image Push: $dockerImageNumberedPushErr
+Sending docker-compose: $publishArtifactErr
+Deploying to Remote Server: $publishPullErr
+"""
             cleanWs()
         }
         success {
