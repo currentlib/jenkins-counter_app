@@ -15,7 +15,6 @@ pipeline {
         dockerImageNumberedErr = 'ok'
         dockerImagePushErr = 'ok'
         dockerImageNumberedPushErr = 'ok'
-        publishArtifactErr = 'ok'
         publishPullErr = 'ok'
     }
 
@@ -144,7 +143,6 @@ Dev Image: $dockerImageErr
 Numbered Image: $dockerImageNumberedErr
 Dev Image Push: $dockerImagePushErr
 Numbered Image Push: $dockerImageNumberedPushErr
-Sending docker-compose: $publishArtifactErr
 Deploying to Remote Server: $publishPullErr
 """
                 }
@@ -159,7 +157,6 @@ Dev Image: $dockerImageErr
 Numbered Image: $dockerImageNumberedErr
 Dev Image Push: $dockerImagePushErr
 Numbered Image Push: $dockerImageNumberedPushErr
-Sending docker-compose: $publishArtifactErr
 Deploying to Remote Server: $publishPullErr
 """
             }
